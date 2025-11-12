@@ -29,6 +29,21 @@ const styles = {
     lineHeight: '1.8',
   },
   error: { color: 'red', textAlign: 'center' },
+  
+  // ⚠️ STYLE MỚI CHO TAGS ⚠️
+  tagContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '8px',
+    marginBottom: '20px',
+  },
+  tag: {
+    backgroundColor: '#007bff',
+    color: 'white',
+    padding: '5px 12px',
+    borderRadius: '15px',
+    fontSize: '0.9rem',
+  },
 };
 
 function NewsDetailPage() {
@@ -78,9 +93,16 @@ function NewsDetailPage() {
         <strong> Date:</strong> {new Date(article.createdDate).toLocaleString()}
       </div>
       
-      {/* Sử dụng 'dangerouslySetInnerHTML' để render HTML từ API 
-        (Giả sử NewsContent là HTML an toàn)
-      */}
+      {/* ⚠️ HIỂN THỊ TAGS Ở ĐÂY ⚠️ */}
+      {article.tags && article.tags.length > 0 && (
+        <div style={styles.tagContainer}>
+          <strong>Tags:</strong>
+          {article.tags.map((tag) => (
+            <span key={tag} style={styles.tag}>{tag}</span>
+          ))}
+        </div>
+      )}
+
       <div
         style={styles.content}
         dangerouslySetInnerHTML={{ __html: article.newsContent }}
